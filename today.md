@@ -1,40 +1,50 @@
-# 今日计划：Day 1
+# 今日计划：Day 2
 
-## 今日目标
+## 今日主线
 
-初始化 dba-agent-workbench 项目，完成 AI Agent Workbench 前端骨架。
+继续推进 `dba-agent-workbench`。
 
-补充要求：仓库目录必须按 5 个主线项目固定规划：
+今天不是急着堆功能，而是先把 Day 1 的项目讲透、练熟，然后再进入下一步 fake streaming。
 
-1. `dba-agent-workbench`
-2. `dba-rag-assistant`
-3. `mcp-db-toolkit`
-4. `ai-agent-ui-components`
-5. `cuda-npu-lab`
+## 今日学习目标
+
+到今天结束，你需要能完成 3 件事：
+
+1. 用 2 分钟讲清楚 `dba-agent-workbench` 是什么。
+2. 能解释三栏布局为什么适合 AI Agent 工作台。
+3. 能说清下一步为什么要做 fake streaming，以及它对应真实 AI 产品里的什么能力。
+
+## 今日训练方式
+
+采用“提问 -> 你回答 -> 我追问 -> 我纠偏 -> 再回答”的方式。
+
+今天重点练 5 类问题：
+
+1. 项目定位：这个项目解决什么问题？
+2. 产品结构：为什么是左中右三栏？
+3. 技术实现：当前用了哪些技术，为什么先 mock？
+4. Agent 理解：执行轨迹、工具调用、Human Approval 分别是什么？
+5. 面试表达：如何把 DBA 背景讲成 AI Agent 应用优势？
 
 ## 今天只做这几件事
 
-1. 创建 Next.js + TypeScript + Tailwind 项目。
-2. 做三栏布局：
-   - 左侧：会话列表
-   - 中间：聊天窗口
-   - 右侧：Agent 执行轨迹 / 工具调用面板
-3. 使用 mock 数据，不接真实模型。
-4. 写 README。
-5. 完成第一次 git commit。
-6. 补齐 5 个主线项目目录和项目说明。
+1. 建立 Day 2 训练题卡。
+2. 完成第一轮口述训练。
+3. 根据回答补齐项目 README 的“面试讲法”。
+4. 如果训练通过，再开始 fake streaming 的最小实现。
 
-## 不做什么
+## 今天不做什么
 
-- 不接 OpenAI API
-- 不学 LangGraph
-- 不做 RAG
-- 不做 MCP
-- 不纠结 UI 完美
+- 不接真实 OpenAI API。
+- 不接数据库。
+- 不做 RAG。
+- 不做 MCP。
+- 不追求复杂 UI。
 
 ## 验收标准
 
-- pnpm dev 能跑起来
-- 首页能看到三栏 AI Agent 工作台
-- README 写清楚项目目标
-- git 有第一次 commit
+- 你能不看稿讲出项目定位。
+- 你能说清三栏布局的设计原因。
+- 你能回答 fake streaming 的意义。
+- 仓库中有 Day 2 训练记录。
+- 如有代码变更，必须通过 lint/build。
