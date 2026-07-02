@@ -1,10 +1,19 @@
 # dba-agent-workbench
 
-AI Agent 学习路线的 Day 1 项目。
+主线项目 1：AI Agent 前端工作台。
 
 ## 项目目标
 
 做一个可以逐步打磨成作品集的 AI Agent 工作台，场景聚焦 DBA 故障处理流程。当前第一版是静态 Next.js 模拟页面，用来先确定产品形态，暂时不接模型、工具、RAG 或 MCP。
+
+最终目标是形成一个能展示 AI Agent 产品能力的前端工作台：
+
+- 会话列表
+- Chat UI
+- Agent 执行轨迹
+- 工具调用过程
+- Human Approval
+- 故障报告生成
 
 ## Day 1 范围
 
@@ -41,6 +50,7 @@ pnpm build
 3. 增加人工审批交互。
 4. 抽取可复用的 Agent UI 组件。
 5. 接入只读的模拟工具执行器。
+6. 生成 DBA 故障处理报告。
 
 ## 面试可讲点
 

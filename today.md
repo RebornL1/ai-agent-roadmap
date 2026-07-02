@@ -4,6 +4,14 @@
 
 初始化 dba-agent-workbench 项目，完成 AI Agent Workbench 前端骨架。
 
+补充要求：仓库目录必须按 5 个主线项目固定规划：
+
+1. `dba-agent-workbench`
+2. `dba-rag-assistant`
+3. `mcp-db-toolkit`
+4. `ai-agent-ui-components`
+5. `cuda-npu-lab`
+
 ## 今天只做这几件事
 
 1. 创建 Next.js + TypeScript + Tailwind 项目。
@@ -14,6 +22,7 @@
 3. 使用 mock 数据，不接真实模型。
 4. 写 README。
 5. 完成第一次 git commit。
+6. 补齐 5 个主线项目目录和项目说明。
 
 ## 不做什么
 
