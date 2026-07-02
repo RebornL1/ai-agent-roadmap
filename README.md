@@ -8,6 +8,8 @@
 
 详细项目规划见：[PROJECTS.md](./PROJECTS.md)
 
+每日达标标准见：[STANDARDS.md](./STANDARDS.md)
+
 ## 当前重点
 
 Day 1 从 `projects/dba-agent-workbench` 开始。这个项目是一个面向 DBA 故障处理场景的 AI Agent 工作台骨架，目前只使用模拟数据。
@@ -41,5 +43,6 @@ Day 1 从 `projects/dba-agent-workbench` 开始。这个项目是一个面向 DB
 1. 先读 `AGENTS.md`。
 2. 再读 `today.md`。
 3. 根据 `PROJECTS.md` 选择当天最小、最有价值的任务。
-4. 完成开发、验证，并写学习日志。
-5. 提交一次 Git commit。
+4. 按 `STANDARDS.md` 完成训练和验收。
+5. 完成开发、验证，并写学习日志。
+6. 提交一次 Git commit，并同步到 GitHub。
