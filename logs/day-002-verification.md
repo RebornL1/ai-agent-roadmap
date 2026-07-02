@@ -10,6 +10,17 @@
 2. 能解释三栏布局为什么适合 AI Agent 工作台。
 3. 能说清下一步为什么要做 fake streaming。
 
+## 验收门 0：零基础文件走读完成
+
+状态：通过
+
+证据：
+
+- 已完成 `dba-agent-workbench` 代码走读。
+- 已新增 `training/day-002-code-walkthrough.md`。
+- 已新增 `projects/dba-agent-workbench/LEARNING_MAP.md`。
+- `LEARNING_MAP.md` 覆盖关键文件、文件后缀、语言/技术、技术解决的问题、官方学习链接和项目内作用。
+
 ## 验收门 1：今日目标明确
 
 状态：通过
@@ -68,11 +79,13 @@
 
 ## 验收门 6：Git 和远程同步
 
-状态：待检查
+状态：通过
 
-原因：
+证据：
 
-- 当前验收记录创建后，需要提交并推送到 GitHub。
+- 本轮新增“零基础文件走读”每日验收标准。
+- 本轮新增 `projects/dba-agent-workbench/LEARNING_MAP.md`。
+- 本轮变更随本次提交同步到 GitHub。
 
 ## 今日最终判定
 
