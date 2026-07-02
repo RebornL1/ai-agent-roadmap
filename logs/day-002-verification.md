@@ -31,6 +31,7 @@
 - 已新增 `training/day-002-code-walkthrough.md`。
 - 已完成项目代码走读材料，覆盖 `package.json`、`layout.tsx`、`globals.css` 和 `page.tsx`。
 - 已新增 `training/day-002-speaking-ladder.md`，将 5 道核心题拆成跟读、填空、半遮挡和独立复述四步。
+- 已在 `dba-agent-workbench` 页面新增 Day 2 学习模式区域，展示 5 道必须过关的口述训练题和当前未通过状态。
 
 ## 验收门 3：口述训练通过
 

@@ -93,6 +93,29 @@ const toolCalls = [
   },
 ];
 
+const trainingQuestions = [
+  {
+    title: "这个项目是什么？",
+    checkpoint: "说出 AI Agent 前端工作台、DBA 故障处理、三栏布局、mock 数据和后续能力。",
+  },
+  {
+    title: "为什么设计成三栏？",
+    checkpoint: "说明左侧会话、中间对话、右侧执行轨迹和工具调用各自的价值。",
+  },
+  {
+    title: "Agent 执行轨迹有什么价值？",
+    checkpoint: "说出可见、可审计、可人工介入，不能只看最终回答。",
+  },
+  {
+    title: "Human Approval 是什么？",
+    checkpoint: "说出高风险动作前暂停、展示参数和风险、人工确认后继续。",
+  },
+  {
+    title: "fake streaming 是什么？",
+    checkpoint: "说出模拟逐字/分段输出，为真实 SSE 或 Vercel AI SDK 做准备。",
+  },
+];
+
 const statusStyles: Record<string, string> = {
   运行中: "border-sky-200 bg-sky-50 text-sky-700",
   草稿: "border-amber-200 bg-amber-50 text-amber-700",
@@ -100,6 +123,8 @@ const statusStyles: Record<string, string> = {
   等待审批: "border-amber-200 bg-amber-50 text-amber-700",
   排队中: "border-zinc-200 bg-zinc-50 text-zinc-600",
   需要审批: "border-rose-200 bg-rose-50 text-rose-700",
+  未通过: "border-rose-200 bg-rose-50 text-rose-700",
+  待训练: "border-zinc-200 bg-zinc-50 text-zinc-600",
 };
 
 function StatusBadge({ status }: { status: string }) {
@@ -248,6 +273,30 @@ export default function Home() {
             </section>
           </aside>
         </div>
+
+        <section className="mb-4 rounded-lg border border-zinc-200 bg-white">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200 px-5 py-4">
+            <div>
+              <p className="text-sm font-medium text-sky-700">Day 2 学习模式</p>
+              <h2 className="mt-1 text-lg font-semibold">今日必须过关的口述训练</h2>
+            </div>
+            <StatusBadge status="未通过" />
+          </div>
+          <div className="grid gap-3 p-4 md:grid-cols-2 xl:grid-cols-5">
+            {trainingQuestions.map((question, index) => (
+              <article className="rounded-lg border border-zinc-200 p-3" key={question.title}>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-semibold text-zinc-500">
+                    Q{index + 1}
+                  </span>
+                  <StatusBadge status="待训练" />
+                </div>
+                <h3 className="mt-3 text-sm font-semibold">{question.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-600">{question.checkpoint}</p>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );
