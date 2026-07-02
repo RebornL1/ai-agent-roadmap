@@ -1,115 +1,112 @@
 const sessions = [
   {
-    title: "CPU spike triage",
+    title: "CPU 飙高排查",
     tag: "prod-db-03",
     time: "09:42",
-    status: "Running",
-    preview: "Check host load, active sessions, and top SQL.",
+    status: "运行中",
+    preview: "检查主机负载、活跃会话和 Top SQL。",
   },
   {
-    title: "Slow SQL review",
+    title: "慢 SQL 分析",
     tag: "order_core",
-    time: "Yesterday",
-    status: "Draft",
-    preview: "Compare plan drift and missing index candidates.",
+    time: "昨天",
+    status: "草稿",
+    preview: "对比执行计划变化，判断是否存在索引缺失。",
   },
   {
-    title: "Replication lag",
+    title: "主备延迟",
     tag: "gaussdb-ha",
-    time: "Mon",
-    status: "Done",
-    preview: "Build recovery checklist for primary/standby lag.",
+    time: "周一",
+    status: "已完成",
+    preview: "整理主备延迟恢复检查清单。",
   },
   {
-    title: "Storage waterline",
+    title: "存储水位风险",
     tag: "capacity",
-    time: "Jun 30",
-    status: "Done",
-    preview: "Summarize growth trend and cleanup windows.",
+    time: "6月30日",
+    status: "已完成",
+    preview: "汇总容量增长趋势和清理窗口。",
   },
 ];
 
 const messages = [
   {
-    role: "User",
-    body: "prod-db-03 CPU is above 92% for 18 minutes. Generate a DBA triage checklist and safe SQL probes.",
+    role: "用户",
+    body: "prod-db-03 的 CPU 已经连续 18 分钟超过 92%。请生成 DBA 排查清单和安全的只读诊断 SQL。",
   },
   {
     role: "Agent",
-    body: "I will separate host pressure, database sessions, slow SQL, lock waits, and recent changes before proposing recovery actions.",
+    body: "我会先区分主机资源压力、数据库会话、慢 SQL、锁等待和近期变更，再给出恢复建议。",
   },
   {
     role: "Agent",
-    body: "Initial signal: active sessions increased after the 09:20 release window. Next step is to inspect top SQL by elapsed time and CPU time.",
+    body: "初步信号：09:20 发布窗口后活跃会话明显增加。下一步建议查看按耗时和 CPU 时间排序的 Top SQL。",
   },
 ];
 
 const agentSteps = [
   {
-    label: "Plan",
-    status: "done",
-    detail: "Classify incident scope and choose read-only diagnostics.",
+    label: "制定计划",
+    status: "已完成",
+    detail: "确认故障影响范围，并选择只读诊断动作。",
   },
   {
-    label: "Retrieve",
-    status: "done",
-    detail: "Loaded previous CPU spike runbook and SQL review notes.",
+    label: "检索知识",
+    status: "已完成",
+    detail: "加载历史 CPU 飙高处理手册和 SQL Review 笔记。",
   },
   {
-    label: "Call tool",
-    status: "running",
-    detail: "Running mock health_check and active_session_scan.",
+    label: "调用工具",
+    status: "运行中",
+    detail: "正在执行模拟 health_check 和 active_session_scan。",
   },
   {
-    label: "Approval",
-    status: "waiting",
-    detail: "Waiting before any SQL that may touch production load.",
+    label: "人工审批",
+    status: "等待审批",
+    detail: "涉及生产负载的 SQL 执行前需要人工确认。",
   },
   {
-    label: "Report",
-    status: "queued",
-    detail: "Prepare incident summary and follow-up actions.",
+    label: "生成报告",
+    status: "排队中",
+    detail: "准备输出故障摘要和后续整改建议。",
   },
 ];
 
 const toolCalls = [
   {
     name: "health_check",
-    state: "completed",
+    state: "已完成",
     args: "target=prod-db-03, mode=read_only",
-    result: "CPU high, IO normal, memory stable.",
+    result: "CPU 偏高，IO 正常，内存稳定。",
   },
   {
     name: "active_session_scan",
-    state: "running",
+    state: "运行中",
     args: "window=20m, group_by=sql_id",
-    result: "Collecting top sessions.",
+    result: "正在收集活跃会话 Top SQL。",
   },
   {
     name: "explain_sql",
-    state: "approval",
+    state: "需要审批",
     args: "sql_id=8f4a..., risk=low",
-    result: "Human approval required.",
+    result: "该动作需要人工审批后继续。",
   },
 ];
 
 const statusStyles: Record<string, string> = {
-  Running: "border-sky-200 bg-sky-50 text-sky-700",
-  Draft: "border-amber-200 bg-amber-50 text-amber-700",
-  Done: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  done: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  running: "border-sky-200 bg-sky-50 text-sky-700",
-  waiting: "border-amber-200 bg-amber-50 text-amber-700",
-  queued: "border-zinc-200 bg-zinc-50 text-zinc-600",
-  completed: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  approval: "border-rose-200 bg-rose-50 text-rose-700",
+  运行中: "border-sky-200 bg-sky-50 text-sky-700",
+  草稿: "border-amber-200 bg-amber-50 text-amber-700",
+  已完成: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  等待审批: "border-amber-200 bg-amber-50 text-amber-700",
+  排队中: "border-zinc-200 bg-zinc-50 text-zinc-600",
+  需要审批: "border-rose-200 bg-rose-50 text-rose-700",
 };
 
 function StatusBadge({ status }: { status: string }) {
   return (
     <span
       className={`inline-flex h-6 items-center rounded-md border px-2 text-xs font-medium ${
-        statusStyles[status] ?? statusStyles.queued
+        statusStyles[status] ?? statusStyles["排队中"]
       }`}
     >
       {status}
@@ -124,12 +121,12 @@ export default function Home() {
         <header className="flex min-h-14 flex-wrap items-center justify-between gap-3 border-b border-zinc-200 pb-4">
           <div>
             <p className="text-sm font-medium text-sky-700">dba-agent-workbench</p>
-            <h1 className="text-2xl font-semibold">DBA Agent Workbench</h1>
+            <h1 className="text-2xl font-semibold">DBA Agent 工作台</h1>
           </div>
           <div className="flex items-center gap-2">
-            <StatusBadge status="Running" />
+            <StatusBadge status="运行中" />
             <button className="h-9 rounded-md border border-zinc-300 bg-white px-3 text-sm font-medium text-zinc-800 shadow-sm">
-              New case
+              新建案例
             </button>
           </div>
         </header>
@@ -137,7 +134,7 @@ export default function Home() {
         <div className="grid flex-1 gap-4 py-4 lg:grid-cols-[280px_minmax(0,1fr)_360px]">
           <aside className="min-h-[280px] rounded-lg border border-zinc-200 bg-white">
             <div className="border-b border-zinc-200 px-4 py-3">
-              <h2 className="text-sm font-semibold">Cases</h2>
+              <h2 className="text-sm font-semibold">故障案例</h2>
             </div>
             <div className="space-y-2 p-3">
               {sessions.map((session) => (
@@ -164,11 +161,11 @@ export default function Home() {
           <section className="flex min-h-[520px] flex-col rounded-lg border border-zinc-200 bg-white">
             <div className="flex items-center justify-between gap-3 border-b border-zinc-200 px-5 py-4">
               <div>
-                <h2 className="text-base font-semibold">CPU spike triage</h2>
-                <p className="mt-1 text-sm text-zinc-500">Incident workspace / prod-db-03</p>
+                <h2 className="text-base font-semibold">CPU 飙高排查</h2>
+                <p className="mt-1 text-sm text-zinc-500">故障工作区 / prod-db-03</p>
               </div>
               <button className="h-9 rounded-md bg-zinc-950 px-3 text-sm font-medium text-white">
-                Export report
+                导出报告
               </button>
             </div>
 
@@ -199,15 +196,15 @@ export default function Home() {
             <div className="border-t border-zinc-200 p-4">
               <div className="rounded-lg border border-zinc-300 bg-white p-3">
                 <p className="min-h-12 text-sm leading-6 text-zinc-500">
-                  Message DBA Agent
+                  向 DBA Agent 发送消息
                 </p>
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   <div className="flex gap-2 text-xs text-zinc-500">
-                    <span className="rounded-md border border-zinc-200 px-2 py-1">read-only</span>
-                    <span className="rounded-md border border-zinc-200 px-2 py-1">mock data</span>
+                    <span className="rounded-md border border-zinc-200 px-2 py-1">只读模式</span>
+                    <span className="rounded-md border border-zinc-200 px-2 py-1">模拟数据</span>
                   </div>
                   <button className="h-9 rounded-md bg-sky-700 px-3 text-sm font-medium text-white">
-                    Queue mock run
+                    加入模拟执行队列
                   </button>
                 </div>
               </div>
@@ -217,7 +214,7 @@ export default function Home() {
           <aside className="grid min-h-[520px] gap-4">
             <section className="rounded-lg border border-zinc-200 bg-white">
               <div className="border-b border-zinc-200 px-4 py-3">
-                <h2 className="text-sm font-semibold">Agent timeline</h2>
+                <h2 className="text-sm font-semibold">Agent 执行轨迹</h2>
               </div>
               <div className="space-y-3 p-4">
                 {agentSteps.map((step) => (
@@ -234,7 +231,7 @@ export default function Home() {
 
             <section className="rounded-lg border border-zinc-200 bg-white">
               <div className="border-b border-zinc-200 px-4 py-3">
-                <h2 className="text-sm font-semibold">Tool calls</h2>
+                <h2 className="text-sm font-semibold">工具调用</h2>
               </div>
               <div className="space-y-3 p-4">
                 {toolCalls.map((tool) => (

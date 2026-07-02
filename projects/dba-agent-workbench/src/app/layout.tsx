@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "DBA Agent Workbench",
-  description: "AI Agent workbench mock UI for DBA incident workflows.",
+  description: "面向 DBA 故障处理流程的 AI Agent 工作台模拟界面。",
 };
 
 export default function RootLayout({
